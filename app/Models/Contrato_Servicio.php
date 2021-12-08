@@ -17,8 +17,19 @@ class Contrato_Servicio extends Model
      * @var string[]
      */
     protected $fillable = [
+        'precio',
         'imagen',
         'id_servicio',
         'id_usuario'
     ];
+
+    public function usuario()
+    {
+        return $this->hasOne(User::class, 'id', 'id_usuario');
+    }
+
+    public function servicio()
+    {
+        return $this->hasOne(Servicio::class, 'id', 'id_servicio');
+    }
 }

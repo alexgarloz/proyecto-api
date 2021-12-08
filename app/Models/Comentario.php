@@ -17,16 +17,18 @@ class Comentario extends Model
      * @var string[]
      */
     protected $fillable = [
-        'nombre',
-        'apellido1',
-        'apellido2',
-        'descripcion',
-        'idioma',
-        'habilidades',
-        'estado',
-        'email',
-        'img_perfil',
-        'password',
-        'rol'
+        'texto',
+        'id_servicio',
+        'id_usuario'
     ];
+
+    public function servicio()
+    {
+        return $this->belongsTo(Servicio::class, 'id', 'id_servicio');
+    }
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'id', 'id_usuario');
+    }
 }

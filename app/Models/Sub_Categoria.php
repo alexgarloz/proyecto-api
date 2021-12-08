@@ -20,4 +20,9 @@ class Sub_Categoria extends Model
         'nombre',
         'id_categoria'
     ];
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class, 'id_categoria', 'id');
+    }
 }
