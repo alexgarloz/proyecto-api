@@ -24,4 +24,19 @@ class Servicio extends Model
         'id_sub_categoria',
         'id_usuario'
     ];
+
+    public function subCategoria()
+    {
+        return $this->hasMany(Sub_Categoria::class, 'id', 'id_sub_categoria');
+    }
+
+    public function usuario()
+    {
+        return $this->hasOne(User::class, 'id', 'id_usuario');
+    }
+
+    public function imagen()
+    {
+        return $this->hasOne(Img_Servicio::class, 'id_servicio', 'imagen');
+    }
 }

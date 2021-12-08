@@ -20,4 +20,9 @@ class Img_Servicio extends Model
         'imagen',
         'id_servicio'
     ];
+
+    public function servicio()
+    {
+        return $this->hasOne(Servicio::class, 'id_servicio', 'imagen');
+    }
 }

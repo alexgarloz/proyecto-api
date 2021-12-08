@@ -24,4 +24,9 @@ class Direccion extends Model
         'ciudad',
         'id_usuario'
     ];
+
+    public function direccion()
+    {
+        return $this->hasOne(User::class, 'id_usuario', 'id');
+    }
 }
