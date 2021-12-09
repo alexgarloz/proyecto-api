@@ -9,6 +9,8 @@ class Direccion extends Model
 {
     use HasFactory;
 
+    protected $table = 'direccion';
+
     protected $primaryKey = 'id';
 
     /**
@@ -27,6 +29,6 @@ class Direccion extends Model
 
     public function direccion()
     {
-        return $this->hasOne(User::class, 'id_usuario', 'id');
+        return $this->belongsTo(User::class, 'id_usuario', 'id');
     }
 }

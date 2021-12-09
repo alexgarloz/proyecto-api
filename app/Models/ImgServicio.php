@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sub_Categoria extends Model
+class ImgServicio extends Model
 {
     use HasFactory;
+
+    protected $table = 'img_servicio';
 
     protected $primaryKey = 'id';
 
@@ -17,12 +19,12 @@ class Sub_Categoria extends Model
      * @var string[]
      */
     protected $fillable = [
-        'nombre',
-        'id_categoria'
+        'imagen',
+        'id_servicio'
     ];
 
-    public function categoria()
+    public function servicio()
     {
-        return $this->belongsTo(Categoria::class, 'id_categoria', 'id');
+        return $this->hasOne(Servicio::class, 'id_servicio', 'imagen');
     }
 }

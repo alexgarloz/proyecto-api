@@ -9,6 +9,7 @@ class Categoria extends Model
 {
     use HasFactory;
 
+    protected $table = 'categoria';
     protected $primaryKey = 'id';
 
     /**
@@ -28,6 +29,6 @@ class Categoria extends Model
 
     public function subCategoria()
     {
-        return $this->hasMany(Sub_Categoria::class, 'id_categoria', 'id');
+        return $this->hasMany(SubCategoria::class, 'id_categoria', 'id');
     }
 }

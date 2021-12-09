@@ -56,7 +56,7 @@ class User extends Authenticatable
 
     public function contratosServicio()
     {
-        return $this->hasMany(Contrato_Servicio::class, 'id_usuario', 'id');
+        return $this->hasMany(ContratoServicio::class, 'id_usuario', 'id');
     }
 
     public function servicios()

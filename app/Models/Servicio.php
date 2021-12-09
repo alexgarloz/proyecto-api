@@ -9,6 +9,8 @@ class Servicio extends Model
 {
     use HasFactory;
 
+    protected $table = 'servicio';
+
     protected $primaryKey = 'id';
 
     /**
@@ -27,7 +29,7 @@ class Servicio extends Model
 
     public function subCategoria()
     {
-        return $this->hasMany(Sub_Categoria::class, 'id', 'id_sub_categoria');
+        return $this->hasMany(SubCategoria::class, 'id', 'id_sub_categoria');
     }
 
     public function usuario()
@@ -37,6 +39,6 @@ class Servicio extends Model
 
     public function imagen()
     {
-        return $this->hasOne(Img_Servicio::class, 'id_servicio', 'imagen');
+        return $this->hasOne(ImgServicio::class, 'id_servicio', 'imagen');
     }
 }
