@@ -9,6 +9,7 @@ class Comentario extends Model
 {
     use HasFactory;
 
+    protected $table = 'comentario';
     protected $primaryKey = 'id';
 
     /**
