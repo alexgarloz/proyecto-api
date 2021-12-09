@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Contrato_Servicio extends Model
+class SubCategoria extends Model
 {
     use HasFactory;
+
+    protected $table = 'sub_categoria';
 
     protected $primaryKey = 'id';
 
@@ -17,19 +19,12 @@ class Contrato_Servicio extends Model
      * @var string[]
      */
     protected $fillable = [
-        'precio',
-        'imagen',
-        'id_servicio',
-        'id_usuario'
+        'nombre',
+        'id_categoria'
     ];
 
-    public function usuario()
+    public function categoria()
     {
-        return $this->hasOne(User::class, 'id', 'id_usuario');
-    }
-
-    public function servicio()
-    {
-        return $this->hasOne(Servicio::class, 'id', 'id_servicio');
+        return $this->belongsTo(Categoria::class, 'id_categoria', 'id');
     }
 }
