@@ -25,6 +25,7 @@ class User extends Authenticatable
         'nombre',
         'apellido1',
         'apellido2',
+        'pais',
         'descripcion',
         'idioma',
         'habilidades',
