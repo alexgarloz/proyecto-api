@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::prefix('/user')->name('user.')->group(function () {
+    Route::get('/', [UserController::class, 'getAll']);
+    //Route::middleware(ComprobarIdNumerico::class)->group(function () {
+        Route::get('/{id}', [UserController::class, 'getId']);
+        Route::delete('/{id}', [UserController::class, 'deleteUser']);
+        Route::put('/{id}', [UserController::class, 'modifyUser']);
+    //});
+    Route::post('', [UserController::class, 'insertUser']);
+});
+
