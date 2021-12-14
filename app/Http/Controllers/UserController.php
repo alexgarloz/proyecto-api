@@ -38,7 +38,7 @@ class UserController extends Controller
                 return response()->json([
                     'success' => 'true',
                     'message' => 'Usuarios Obtenidos Correctamente',
-                    'data' => User::find($id)
+                    'data' => $idUser
                 ]);
             }
         } catch (\Exception $e) {
