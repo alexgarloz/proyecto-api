@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DireccionController;
+use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\SubCategoriaController;
 use App\Http\Controllers\TipoController;
 use App\Http\Controllers\UserController;
@@ -71,4 +72,14 @@ Route::prefix('/sub_categoria')->name('sub_categoria.')->group(function () {
     Route::put('/{id}', [SubCategoriaController::class, 'modifySubCategoria']);
     //});
     Route::post('', [SubCategoriaController::class, 'insertSubCategoria']);
+});
+
+Route::prefix('/servicio')->name('servicio.')->group(function () {
+    Route::get('/', [ServicioController::class, 'getAll']);
+    //Route::middleware(ComprobarIdNumerico::class)->group(function () {
+    Route::get('/{id}', [ServicioController::class, 'getId']);
+    Route::delete('/{id}', [ServicioController::class, 'deleteServicio']);
+    Route::put('/{id}', [ServicioController::class, 'modifyServicio']);
+    //});
+    Route::post('', [ServicioController::class, 'insertServicio']);
 });
