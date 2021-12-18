@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DireccionController;
+use App\Http\Controllers\SubCategoriaController;
 use App\Http\Controllers\TipoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -60,4 +61,14 @@ Route::prefix('/categoria')->name('categoria.')->group(function () {
     Route::put('/{id}', [CategoriaController::class, 'modifyCategoria']);
     //});
     Route::post('', [CategoriaController::class, 'insertCategoria']);
+});
+
+Route::prefix('/sub_categoria')->name('sub_categoria.')->group(function () {
+    Route::get('/', [SubCategoriaController::class, 'getAll']);
+    //Route::middleware(ComprobarIdNumerico::class)->group(function () {
+    Route::get('/{id}', [SubCategoriaController::class, 'getId']);
+    Route::delete('/{id}', [SubCategoriaController::class, 'deleteSubCategoria']);
+    Route::put('/{id}', [SubCategoriaController::class, 'modifySubCategoria']);
+    //});
+    Route::post('', [SubCategoriaController::class, 'insertSubCategoria']);
 });
