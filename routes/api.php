@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\TipoController;
 use App\Http\Controllers\UserController;
@@ -51,3 +52,12 @@ Route::prefix('/direccion')->name('direccion.')->group(function () {
     Route::post('', [DireccionController::class, 'insertDireccion']);
 });
 
+Route::prefix('/categoria')->name('categoria.')->group(function () {
+    Route::get('/', [CategoriaController::class, 'getAll']);
+    //Route::middleware(ComprobarIdNumerico::class)->group(function () {
+    Route::get('/{id}', [CategoriaController::class, 'getId']);
+    Route::delete('/{id}', [CategoriaController::class, 'deleteCategoria']);
+    Route::put('/{id}', [CategoriaController::class, 'modifyCategoria']);
+    //});
+    Route::post('', [CategoriaController::class, 'insertCategoria']);
+});
