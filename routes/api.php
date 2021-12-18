@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\TipoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -38,5 +39,15 @@ Route::prefix('/tipo')->name('tipo.')->group(function () {
     Route::put('/{id}', [TipoController::class, 'modifyTipo']);
     //});
     Route::post('', [TipoController::class, 'insertTipo']);
+});
+
+Route::prefix('/direccion')->name('direccion.')->group(function () {
+    Route::get('/', [DireccionController::class, 'getAll']);
+    //Route::middleware(ComprobarIdNumerico::class)->group(function () {
+    Route::get('/{id}', [DireccionController::class, 'getId']);
+    Route::delete('/{id}', [DireccionController::class, 'deleteDireccion']);
+    Route::put('/{id}', [DireccionController::class, 'modifyDireccion']);
+    //});
+    Route::post('', [DireccionController::class, 'insertDireccion']);
 });
 
