@@ -15,7 +15,7 @@ class CreateDireccionTable extends Migration
     {
         Schema::create('direccion', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('codigo_postal')->nullable();
+            $table->integer('codigo_postal')->nullable();
             $table->tinyText('pais')->nullable();
             $table->tinyText('provincia')->nullable();
             $table->tinyText('domicilio')->nullable()->comment('aqui especificamos la calle del usuario.');
