@@ -71,7 +71,7 @@ class CategoriaController extends Controller
             return response()->json([
                 'success' => 'false',
                 'message' => 'Error al Insertar la Categoría',
-                'data' => $e//null
+                'data' => null
             ], 404);
         }
     }
@@ -82,8 +82,7 @@ class CategoriaController extends Controller
         $data = $request->only(['nombre', 'tipo']);
 
         $request->validate([
-            'nombre' => 'required|string',
-            'tipo' => 'string'
+            'nombre' => 'required|string'
         ]);
         try {
             $updateCategoria = Categoria::find($id);
