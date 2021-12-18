@@ -90,7 +90,7 @@ class DireccionController extends Controller
         $data = $request->only(['codigo_postal', 'pais', 'provincia', 'domicilio', 'ciudad']);
 
         $request->validate([
-            'codigo_postal' => 'integer|max:6',
+            'codigo_postal' => 'digits:5',
             'pais' => 'string|max:254',
             'provincia' => 'string|max:254',
             'domicilio' => 'string|max:254',
