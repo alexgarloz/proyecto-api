@@ -17,7 +17,6 @@ class CreateCategoriaTable extends Migration
         Schema::create('categoria', function (Blueprint $table) {
             $table->id();
             $table->tinyText('nombre');
-            $table->tinyText('tipo');
             $table->unsignedBigInteger('id_tipo');
             $table->timestamps();
 
