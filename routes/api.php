@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\SubCategoriaController;
@@ -82,4 +83,14 @@ Route::prefix('/servicio')->name('servicio.')->group(function () {
     Route::put('/{id}', [ServicioController::class, 'modifyServicio']);
     //});
     Route::post('', [ServicioController::class, 'insertServicio']);
+});
+
+Route::prefix('/comentario')->name('comentario.')->group(function () {
+    Route::get('/', [ComentarioController::class, 'getAll']);
+    //Route::middleware(ComprobarIdNumerico::class)->group(function () {
+    Route::get('/{id}', [ComentarioController::class, 'getId']);
+    Route::delete('/{id}', [ComentarioController::class, 'deleteComentario']);
+    Route::put('/{id}', [ComentarioController::class, 'modifyComentario']);
+    //});
+    Route::post('', [ComentarioController::class, 'insertComentario']);
 });
