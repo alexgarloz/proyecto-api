@@ -17,7 +17,7 @@ class ServicioFactory extends Factory
     {
         return [
             'nombre' => $this->faker->sentence(4),
-            'descripcion' => $this->faker->paragraph(),
+            'descripcion' => $this->faker->text(),
             'imagen' => $this->faker->randomElement(['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg']),
             'precio' => $this->faker->randomFloat(2, 0, 10000),
             'id_sub_categoria' => SubCategoria::inRandomOrder()->first()->id,

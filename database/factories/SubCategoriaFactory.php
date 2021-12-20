@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\SubCategoria;
+use App\Models\Categoria;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SubCategoriaFactory extends Factory
@@ -16,7 +16,7 @@ class SubCategoriaFactory extends Factory
     {
         return [
             'nombre' => $this->faker->word(),
-            'id_categoria' => SubCategoria::inRandomOrder()->first()->id
+            'id_categoria' => Categoria::inRandomOrder()->first()->id
         ];
     }
 }

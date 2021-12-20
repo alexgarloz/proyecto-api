@@ -16,7 +16,7 @@ class ComentarioFactory extends Factory
     public function definition()
     {
         return [
-            'texto' => $this->faker->paragraph(),
+            'texto' => $this->faker->text(),
             'id_servicio' => Servicio::inRandomOrder()->first()->id,
             'id_usuario' => User::inRandomOrder()->first()->id
         ];

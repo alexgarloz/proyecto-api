@@ -17,7 +17,7 @@ class ContratoServicioFactory extends Factory
     {
         return [
             'precio' => $this->faker->randomFloat(2, 0, 10000),
-            'imagen' => $this->faker->randomElement(['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg']),
+            //'imagen' => $this->faker->randomElement(['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg']),
             'id_servicio' => Servicio::inRandomOrder()->first()->id,
             'id_usuario' => User::inRandomOrder()->first()->id
         ];
