@@ -38,7 +38,14 @@ class ServicioController extends Controller
                 return response()->json([
                     'success' => 'true',
                     'message' => 'Servicio Obtenido Correctamente',
-                    'data' => $idUser
+                    'data' => response()->json([
+                        'nombre' => $idUser->nombre,
+                        'descripcion' => $idUser->descripcion,
+                        'imagen' => $idUser->imagen,
+                        'precio' => $idUser->precio,
+                        'id_sub_categoria' => $idUser->subCategoria,
+                        'id_usuario' => $idUser->usuario
+                    ])
                 ]);
             }
         } catch (\Exception $e) {
