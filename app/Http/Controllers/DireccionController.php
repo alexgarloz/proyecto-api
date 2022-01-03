@@ -98,12 +98,20 @@ class DireccionController extends Controller
         ]);
         try {
             $updateDireccion = Direccion::find($id);
-            $updateDireccion->update($data);
-            return response()->json([
-                'success' => 'true',
-                'message' => 'Dirección Modificada Correctamente',
-                'data' => $updateDireccion
-            ], 201);
+            if (!isset($updateDireccion)) {
+                return response()->json([
+                    'success' => 'true',
+                    'message' => 'Error al Obtener la Dirección',
+                    'data' => null
+                ], 404);
+            } else {
+                $updateDireccion->update($data);
+                return response()->json([
+                    'success' => 'true',
+                    'message' => 'Dirección Modificada Correctamente',
+                    'data' => $updateDireccion
+                ], 201);
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'success' => 'false',

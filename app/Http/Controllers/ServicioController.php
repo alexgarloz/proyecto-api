@@ -27,8 +27,8 @@ class ServicioController extends Controller
     public function getId($id)
     {
         try {
-            $idUser = Servicio::find($id);
-            if (!isset($idUser)) {
+            $idServicio = Servicio::find($id);
+            if (!isset($idServicio)) {
                 return response()->json([
                     'success' => 'true',
                     'message' => 'Error al Obtener el Servicio',
@@ -39,12 +39,12 @@ class ServicioController extends Controller
                     'success' => 'true',
                     'message' => 'Servicio Obtenido Correctamente',
                     'data' => response()->json([
-                        'nombre' => $idUser->nombre,
-                        'descripcion' => $idUser->descripcion,
-                        'imagen' => $idUser->imagen,
-                        'precio' => $idUser->precio,
-                        'id_sub_categoria' => $idUser->subCategoria,
-                        'id_usuario' => $idUser->usuario
+                        'nombre' => $idServicio->nombre,
+                        'descripcion' => $idServicio->descripcion,
+                        'imagen' => $idServicio->imagen,
+                        'precio' => $idServicio->precio,
+                        'id_sub_categoria' => $idServicio->subCategoria,
+                        'id_usuario' => $idServicio->usuario
                     ])
                 ]);
             }
@@ -102,13 +102,22 @@ class ServicioController extends Controller
             'precio' => 'required|min:0'
         ]);
         try {
-            $updateUser = Servicio::find($id);
-            $updateUser->update($data);
-            return response()->json([
-                'success' => 'true',
-                'message' => 'Servicio Modificado Correctamente',
-                'data' => $updateUser
-            ], 201);
+            $updateServicio = Servicio::find($id);
+            if (!isset($updateServicio)) {
+                return response()->json([
+                    'success' => 'true',
+                    'message' => 'Error al Obtener el Servicio',
+                    'data' => null
+                ], 404);
+            } else {
+                $updateServicio->update($data);
+                return response()->json([
+                    'success' => 'true',
+                    'message' => 'Servicio Modificado Correctamente',
+                    'data' => $updateServicio
+                ], 201);
+            }
+
         } catch (\Exception $e) {
             return response()->json([
                 'success' => 'false',
@@ -120,9 +129,9 @@ class ServicioController extends Controller
 
     public function deleteServicio($id)
     {
-        $usuario = Servicio::whereId($id)->first();
+        $servicio = Servicio::whereId($id)->first();
         try {
-            if ($usuario === null) {
+            if ($servicio === null) {
                 return response()->json([
                     'success' => 'false',
                     'message' => 'Error No se ha podido eliminar porque no existe el servicio especificado',
@@ -133,7 +142,7 @@ class ServicioController extends Controller
             return response()->json([
                 'success' => 'true',
                 'message' => 'Servicio Eliminado Correctamente',
-                'data' => $usuario
+                'data' => $servicio
             ]);
         } catch (\Exception $e) {
             return response()->json([

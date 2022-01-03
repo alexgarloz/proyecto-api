@@ -85,12 +85,21 @@ class SubCategoriaController extends Controller
         ]);
         try {
             $updateSubCategoria = SubCategoria::find($id);
-            $updateSubCategoria->update($data);
-            return response()->json([
-                'success' => 'true',
-                'message' => 'Sub Categoría Modificado Correctamente',
-                'data' => $updateSubCategoria
-            ], 201);
+            if (!isset($updateSubCategoria)) {
+                return response()->json([
+                    'success' => 'true',
+                    'message' => 'Error al Obtener la Sub Categoría',
+                    'data' => null
+                ], 404);
+            } else {
+                $updateSubCategoria->update($data);
+                return response()->json([
+                    'success' => 'true',
+                    'message' => 'SubCategoría Modificada Correctamente',
+                    'data' => $updateSubCategoria
+                ], 201);
+            }
+
         } catch (\Exception $e) {
             return response()->json([
                 'success' => 'false',

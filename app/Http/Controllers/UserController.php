@@ -112,12 +112,20 @@ class UserController extends Controller
         ]);
         try {
             $updateUser = User::find($id);
-            $updateUser->update($data);
-            return response()->json([
-                'success' => 'true',
-                'message' => 'Usuario Modificado Correctamente',
-                'data' => $updateUser
-            ], 201);
+            if (!isset($updateUser)) {
+                return response()->json([
+                    'success' => 'true',
+                    'message' => 'Error al Obtener el Usuario',
+                    'data' => null
+                ], 404);
+            } else {
+                $updateUser->update($data);
+                return response()->json([
+                    'success' => 'true',
+                    'message' => 'Usuario Modificado Correctamente',
+                    'data' => $updateUser
+                ], 201);
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'success' => 'false',

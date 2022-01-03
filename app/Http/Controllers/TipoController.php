@@ -83,12 +83,20 @@ class TipoController extends Controller
         ]);
         try {
             $updateTipo = Tipo::find($id);
-            $updateTipo->update($data);
-            return response()->json([
-                'success' => 'true',
-                'message' => 'Tipo Modificado Correctamente',
-                'data' => $updateTipo
-            ], 201);
+            if (!isset($updateTipo)) {
+                return response()->json([
+                    'success' => 'true',
+                    'message' => 'Error al Obtener el Tipo',
+                    'data' => null
+                ], 404);
+            } else {
+                $updateTipo->update($data);
+                return response()->json([
+                    'success' => 'true',
+                    'message' => 'Tipo Modificado Correctamente',
+                    'data' => $updateTipo
+                ], 201);
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'success' => 'false',

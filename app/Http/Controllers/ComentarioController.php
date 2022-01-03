@@ -83,14 +83,23 @@ class ComentarioController extends Controller
         $request->validate([
             'texto' => 'required|string|max:254'
         ]);
+
         try {
             $updateTipo = Comentario::find($id);
-            $updateTipo->update($data);
-            return response()->json([
-                'success' => 'true',
-                'message' => 'Comentario Modificado Correctamente',
-                'data' => $updateTipo
-            ], 201);
+            if (!isset($updateTipo)) {
+                return response()->json([
+                    'success' => 'true',
+                    'message' => 'Error al Modificar el Comentario',
+                    'data' => null
+                ], 404);
+            } else {
+                $updateTipo->update($data);
+                return response()->json([
+                    'success' => 'true',
+                    'message' => 'Comentario Modificado Correctamente',
+                    'data' => $updateTipo
+                ], 201);
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'success' => 'false',

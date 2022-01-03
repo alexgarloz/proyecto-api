@@ -84,14 +84,23 @@ class CategoriaController extends Controller
         $request->validate([
             'nombre' => 'required|string'
         ]);
+
+        $updateCategoria = Categoria::find($id);
         try {
-            $updateCategoria = Categoria::find($id);
-            $updateCategoria->update($data);
-            return response()->json([
-                'success' => 'true',
-                'message' => 'Categoría Modificado Correctamente',
-                'data' => $updateCategoria
-            ], 201);
+            if (!isset($updateCategoria)) {
+                return response()->json([
+                    'success' => 'true',
+                    'message' => 'Error al Obtener la Categoría',
+                    'data' => null
+                ], 404);
+            } else {
+                $updateCategoria->update($data);
+                return response()->json([
+                    'success' => 'true',
+                    'message' => 'Categoría Modificado Correctamente',
+                    'data' => $updateCategoria
+                ], 201);
+            }
         } catch (\Exception $e) {
             return response()->json([
                 'success' => 'false',
