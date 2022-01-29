@@ -57,14 +57,14 @@ class SubCategoriaController extends Controller
             'nombre' => 'required|string'
         ]);
         try {
-            $SubCategoriaCreate = SubCategoria::create([
+            $subCategoriaCreate = SubCategoria::create([
                 'nombre' => $request->nombre,
                 'id_categoria' => '3'
             ]);
             return response()->json([
                 'success' => 'true',
                 'message' => 'Sub Categoría Insertada Correctamente',
-                'data' => $SubCategoriaCreate
+                'data' => $subCategoriaCreate
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
@@ -111,9 +111,9 @@ class SubCategoriaController extends Controller
 
     public function deleteSubCategoria($id)
     {
-        $Subcategoria = SubCategoria::whereId($id)->first();
+        $subCategoria = SubCategoria::whereId($id)->first();
         try {
-            if ($Subcategoria === null) {
+            if ($subCategoria === null) {
                 return response()->json([
                     'success' => 'false',
                     'message' => 'Error No se ha podido eliminar porque no existe la sub categoría especificada',
@@ -124,7 +124,7 @@ class SubCategoriaController extends Controller
             return response()->json([
                 'success' => 'true',
                 'message' => 'Sub Categoría Eliminada Correctamente',
-                'data' => $Subcategoria
+                'data' => $subCategoria
             ]);
         } catch (\Exception $e) {
             return response()->json([
