@@ -50,49 +50,6 @@ class UserController extends Controller
         }
     }
 
-    public function insertUser(Request $request)
-    {
-        $request->only(['nombre', 'apellido1', 'apellido2', 'pais', 'descripcion', 'idioma', 'habilidades',
-            'email', 'password', 'rol']);
-        $request->validate([
-            'nombre' => 'required|string',
-            'apellido1' => 'required|string',
-            'apellido2' => 'required|string',
-            'pais' => 'required|string|max:60',
-            'descripcion' => 'string|max:254',
-            'idioma' => 'string|max:2',
-            'habilidades' => 'string|max:250',
-            'email' => 'string|email|max:200|unique:users',
-            'password' => 'required|string|min:6',
-            'rol' => 'integer|digits_between:1,2'
-        ]);
-        try {
-            $userCreate = User::create([
-                'nombre' => $request->nombre,
-                'apellido1' => $request->apellido1,
-                'apellido2' => $request->apellido2,
-                'pais' => $request->pais,
-                'descripcion' => $request->descripcion,
-                'idioma' => $request->idioma,
-                'habilidades' => $request->habilidades,
-                'rol' => $request->rol,
-                'email' => $request->email,
-                'password' => $request->password,
-            ]);
-            return response()->json([
-                'success' => 'true',
-                'message' => 'Usuario Insertado Correctamente',
-                'data' => $userCreate
-            ], 201);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => 'false',
-                'message' => 'Error al Insertar Usuario',
-                'data' => null
-            ], 404);
-        }
-    }
-
     public function modifyUser(Request $request)
     {
         $id = $request->route('id');
