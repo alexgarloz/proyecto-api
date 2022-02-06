@@ -3,7 +3,7 @@
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\DireccionController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\SubCategoriaController;
 use App\Http\Controllers\TipoController;
@@ -24,17 +24,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+*/
 
 Route::get('/error', function (Request $request) {
     return response()->json(['message' => 'Error'], 404);
 })->name('error');
 
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'registerUser']);
 
-Route::middleware(IsLoggedMiddleware::class)->group(function () {
+});
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('logout', [AuthController::class, 'logout']);
+
     Route::prefix('/user')->name('user.')->group(function () {
         Route::get('/', [UserController::class, 'getAll']);
         Route::middleware(AsegurarIdNumerico::class)->group(function () {
@@ -42,7 +49,6 @@ Route::middleware(IsLoggedMiddleware::class)->group(function () {
             Route::delete('/{id}', [UserController::class, 'deleteUser']);
             Route::put('/{id}', [UserController::class, 'modifyUser']);
         });
-        Route::post('', [UserController::class, 'insertUser']);
     });
 
     Route::prefix('/tipo')->name('tipo.')->group(function () {
@@ -104,4 +110,7 @@ Route::middleware(IsLoggedMiddleware::class)->group(function () {
         });
         Route::post('', [ComentarioController::class, 'insertComentario']);
     });
+//});
 });
+
+

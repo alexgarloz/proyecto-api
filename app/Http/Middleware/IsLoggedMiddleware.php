@@ -19,7 +19,7 @@ class IsLoggedMiddleware
     {
         if (!Auth::check($request)) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'message' => 'Error no puedes acceder, No estas Logueado',
                 'data' => null
             ], 401);
