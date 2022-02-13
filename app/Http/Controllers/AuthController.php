@@ -43,13 +43,13 @@ class AuthController extends Controller
                 'password' => bcrypt($request->password),
             ]);
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Usuario Creado Correctamente',
                 'data' => $userCreate
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'message' => 'Error al Crear el Usuario',
                 'data' => null
             ], 404);

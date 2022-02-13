@@ -11,13 +11,13 @@ class SubCategoriaController extends Controller
     {
         try {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Sub Categorías Obtenidas Correctamente',
                 'data' => SubCategoria::all()
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Obtener la Sub Categoría',
                 'data' => null
             ]);
@@ -30,20 +30,20 @@ class SubCategoriaController extends Controller
             $idSubCategoria = SubCategoria::find($id);
             if (!isset($idSubCategoria)) {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Error al Obtener la Sub Categoría',
                     'data' => null
                 ], 404);
             } else {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Sub Categoría Obtenida Correctamente',
                     'data' => $idSubCategoria
                 ]);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Obtener la Sub Categoría',
                 'data' => null
             ], 404);
@@ -62,13 +62,13 @@ class SubCategoriaController extends Controller
                 'id_categoria' => '3'
             ]);
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Sub Categoría Insertada Correctamente',
                 'data' => $subCategoriaCreate
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'message' => 'Error al Insertar la Sub Categoría',
                 'data' => null
             ], 404);
@@ -87,14 +87,14 @@ class SubCategoriaController extends Controller
             $updateSubCategoria = SubCategoria::find($id);
             if (!isset($updateSubCategoria)) {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Error al Obtener la Sub Categoría',
                     'data' => null
                 ], 404);
             } else {
                 $updateSubCategoria->update($data);
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'SubCategoría Modificada Correctamente',
                     'data' => $updateSubCategoria
                 ], 201);
@@ -102,7 +102,7 @@ class SubCategoriaController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'message' => 'Error al Modificar la Sub Categoría',
                 'data' => null
             ], 404);
@@ -115,20 +115,20 @@ class SubCategoriaController extends Controller
         try {
             if ($subCategoria === null) {
                 return response()->json([
-                    'success' => 'false',
+                    'success' => false,
                     'message' => 'Error No se ha podido eliminar porque no existe la sub categoría especificada',
                     'data' => null
                 ], 404);
             }
             SubCategoria::destroy($id);
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Sub Categoría Eliminada Correctamente',
                 'data' => $subCategoria
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Eliminar la Sub Categoría',
                 'data' => null
             ], 404);
