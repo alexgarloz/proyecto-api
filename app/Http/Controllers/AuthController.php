@@ -86,40 +86,6 @@ class AuthController extends Controller
     }
 
 
-    /*public function login(Request $request)
-
-
-
-    /*
-    if (!Auth::attempt($credentials))
-        return response()->json([
-            'success' => false,
-            'message' => 'No has inciado sesión'
-        ], 401);
-
-    if (Auth::check()) {
-        return ['success' => true, 'response' => 'El usuario ya está logueado', 'user' => auth()->user()];
-    }
-
-
-
-    return [
-        'success' => true,
-        'response' => 'Has iniciado Sesión',
-        'usuario' => Auth::user()
-    ];
-    //$token = $tokenResult->token;
-    //if ($request->remember_me)
-    //   $token->expires_at = Carbon::now()->addWeeks(1);
-    //$token->save();
-
-
-
-    /* return back()->withErrors([
-         'email' => 'Las credenciales proporcionadas no coinciden con nuestros registros.',
-     ]);*/
-
-
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();

@@ -39,7 +39,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('register', [AuthController::class, 'registerUser']);
 
 });
-Route::group(['middleware' => 'auth:sanctum'], function () {
+//Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('logout', [AuthController::class, 'logout']);
 
     Route::prefix('/user')->name('user.')->group(function () {
@@ -111,6 +111,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::post('', [ComentarioController::class, 'insertComentario']);
     });
 //});
-});
+//});
 
 
