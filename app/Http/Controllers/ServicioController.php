@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Servicio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Env;
 
 class ServicioController extends Controller
 {
@@ -67,6 +68,8 @@ class ServicioController extends Controller
             'precio' => 'required|min:0'
         ]);
 
+        $request->merge(['precio' => str_replace(',', '.', $request['precio'])]);
+
         try {
             $servicioCreate = Servicio::create([
                 'nombre' => $request->nombre,
@@ -76,6 +79,22 @@ class ServicioController extends Controller
                 'id_sub_categoria' => '3',
                 'id_usuario' => '1'
             ]);
+            $stripe = new \Stripe\StripeClient(
+                env('STRIPE_SECRET')
+            );
+
+            $product = $stripe->products->create([
+                'name' =>  $request->nombre,
+                'description' =>  $request->descripcion
+                // 'images' =>
+            ]);
+
+            $stripe->prices->create([
+                'product' => $product->id,
+                'unit_amount' => $request->precio * 100,
+                'currency' => 'eur'
+            ]);
+
             return response()->json([
                 'success' => true,
                 'message' => 'Servicio Insertado Correctamente',
