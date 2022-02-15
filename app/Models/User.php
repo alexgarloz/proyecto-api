@@ -33,7 +33,8 @@ class User extends Authenticatable
         'email',
         'img_perfil',
         'password',
-        'rol'
+        'rol',
+        'stripe_id'
     ];
 
     /**
