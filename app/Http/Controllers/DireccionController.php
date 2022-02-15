@@ -12,13 +12,13 @@ class DireccionController extends Controller
     {
         try {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Dirección Obtenida Correctamente',
                 'data' => Direccion::all()
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Obtener la Dirección',
                 'data' => null
             ]);
@@ -31,20 +31,20 @@ class DireccionController extends Controller
             $idDireccion = Direccion::find($id);
             if (!isset($idDireccion)) {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Error al Obtener la Dirección',
                     'data' => null
                 ], 404);
             } else {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Dirección Obtenida Correctamente',
                     'data' => $idDireccion
                 ]);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Obtener la Dirección',
                 'data' => null
             ], 404);
@@ -71,13 +71,13 @@ class DireccionController extends Controller
                 'id_usuario' => '2'//Auth::user()->id
             ]);
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Dirección Insertada Correctamente',
                 'data' => $direccionCreate
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'message' => 'Error al Insertar la Dirección',
                 'data' => null
             ], 404);
@@ -100,21 +100,21 @@ class DireccionController extends Controller
             $updateDireccion = Direccion::find($id);
             if (!isset($updateDireccion)) {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Error al Obtener la Dirección',
                     'data' => null
                 ], 404);
             } else {
                 $updateDireccion->update($data);
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Dirección Modificada Correctamente',
                     'data' => $updateDireccion
                 ], 201);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'message' => 'Error al Modificar la Dirección',
                 'data' => null
             ], 404);
@@ -127,20 +127,20 @@ class DireccionController extends Controller
         try {
             if ($direccion === null) {
                 return response()->json([
-                    'success' => 'false',
+                    'success' => false,
                     'message' => 'Error No se ha podido eliminar porque no existe la dirección especificada',
                     'data' => null
                 ], 404);
             }
             Direccion::destroy($id);
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Dirección Eliminada Correctamente',
                 'data' => $direccion
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Eliminar la Dirección',
                 'data' => null
             ], 404);

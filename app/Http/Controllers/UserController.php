@@ -11,13 +11,13 @@ class UserController extends Controller
     {
         try {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Usuarios Obtenidos Correctamente',
                 'data' => User::all()
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Obtener el Usuario',
                 'data' => null
             ]);
@@ -30,20 +30,20 @@ class UserController extends Controller
             $idUser = User::find($id);
             if (!isset($idUser)) {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Error al Obtener el Usuario',
                     'data' => null
                 ], 404);
             } else {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Usuarios Obtenidos Correctamente',
                     'data' => $idUser
                 ]);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Obtener el Usuario',
                 'data' => null
             ], 404);
@@ -71,21 +71,21 @@ class UserController extends Controller
             $updateUser = User::find($id);
             if (!isset($updateUser)) {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Error al Obtener el Usuario',
                     'data' => null
                 ], 404);
             } else {
                 $updateUser->update($data);
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Usuario Modificado Correctamente',
                     'data' => $updateUser
                 ], 201);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'message' => 'Error al Modificar el Usuario',
                 'data' => null
             ], 404);
@@ -98,20 +98,20 @@ class UserController extends Controller
         try {
             if ($usuario === null) {
                 return response()->json([
-                    'success' => 'false',
+                    'success' => false,
                     'message' => 'Error No se ha podido eliminar porque no existe el usuario especificado',
                     'data' => null
                 ], 404);
             }
             User::destroy($id);
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Usuario Eliminado Correctamente',
                 'data' => $usuario
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Eliminar el Usuario',
                 'data' => null
             ], 404);

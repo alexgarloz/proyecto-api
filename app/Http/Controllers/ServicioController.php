@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Servicio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Env;
 
 class ServicioController extends Controller
 {
@@ -11,13 +12,13 @@ class ServicioController extends Controller
     {
         try {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Servicios Obtenidos Correctamente',
                 'data' => Servicio::all()
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Obtener el Servicio',
                 'data' => null
             ]);
@@ -30,13 +31,13 @@ class ServicioController extends Controller
             $idServicio = Servicio::find($id);
             if (!isset($idServicio)) {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Error al Obtener el Servicio',
                     'data' => null
                 ], 404);
             } else {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Servicio Obtenido Correctamente',
                     'data' => response()->json([
                         'nombre' => $idServicio->nombre,
@@ -50,7 +51,7 @@ class ServicioController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Obtener el Servicio',
                 'data' => null
             ], 404);
@@ -67,6 +68,8 @@ class ServicioController extends Controller
             'precio' => 'required|min:0'
         ]);
 
+        $request->merge(['precio' => str_replace(',', '.', $request['precio'])]);
+
         try {
             $servicioCreate = Servicio::create([
                 'nombre' => $request->nombre,
@@ -76,14 +79,30 @@ class ServicioController extends Controller
                 'id_sub_categoria' => '3',
                 'id_usuario' => '1'
             ]);
+            $stripe = new \Stripe\StripeClient(
+                env('STRIPE_SECRET')
+            );
+
+            $product = $stripe->products->create([
+                'name' =>  $request->nombre,
+                'description' =>  $request->descripcion
+                // 'images' =>
+            ]);
+
+            $stripe->prices->create([
+                'product' => $product->id,
+                'unit_amount' => $request->precio * 100,
+                'currency' => 'eur'
+            ]);
+
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Servicio Insertado Correctamente',
                 'data' => $servicioCreate
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'message' => 'Error al Insertar Servicio',
                 'data' => null
             ], 404);
@@ -105,14 +124,14 @@ class ServicioController extends Controller
             $updateServicio = Servicio::find($id);
             if (!isset($updateServicio)) {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Error al Obtener el Servicio',
                     'data' => null
                 ], 404);
             } else {
                 $updateServicio->update($data);
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Servicio Modificado Correctamente',
                     'data' => $updateServicio
                 ], 201);
@@ -120,7 +139,7 @@ class ServicioController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'message' => 'Error al Modificar el Servicio',
                 'data' => null
             ], 404);
@@ -133,23 +152,24 @@ class ServicioController extends Controller
         try {
             if ($servicio === null) {
                 return response()->json([
-                    'success' => 'false',
+                    'success' => false,
                     'message' => 'Error No se ha podido eliminar porque no existe el servicio especificado',
                     'data' => null
                 ], 404);
             }
             Servicio::destroy($id);
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Servicio Eliminado Correctamente',
                 'data' => $servicio
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Eliminar el Servicio',
                 'data' => null
             ], 404);
         }
     }
+
 }

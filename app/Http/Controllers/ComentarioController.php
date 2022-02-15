@@ -11,13 +11,13 @@ class ComentarioController extends Controller
     {
         try {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Comentarios Obtenidos Correctamente',
                 'data' => Comentario::all()
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Obtener los Comentarios',
                 'data' => null
             ]);
@@ -30,20 +30,20 @@ class ComentarioController extends Controller
             $idCometario = Comentario::find($id);
             if (!isset($idCometario)) {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Error al Obtener el Comentario',
                     'data' => null
                 ], 404);
             } else {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Cometario Obtenido Correctamente',
                     'data' => $idCometario
                 ]);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Obtener el Comentario',
                 'data' => null
             ], 404);
@@ -63,13 +63,13 @@ class ComentarioController extends Controller
                 'id_usuario' => '1'
             ]);
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Tipo Insertado Correctamente',
                 'data' => $tipoCreate
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'message' => 'Error al Insertar el Tipo',
                 'data' => null
             ], 404);
@@ -88,21 +88,21 @@ class ComentarioController extends Controller
             $updateTipo = Comentario::find($id);
             if (!isset($updateTipo)) {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Error al Modificar el Comentario',
                     'data' => null
                 ], 404);
             } else {
                 $updateTipo->update($data);
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Comentario Modificado Correctamente',
                     'data' => $updateTipo
                 ], 201);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'message' => 'Error al Modificar el Comentario',
                 'data' => null
             ], 404);
@@ -115,20 +115,20 @@ class ComentarioController extends Controller
         try {
             if ($tipo === null) {
                 return response()->json([
-                    'success' => 'false',
+                    'success' => false,
                     'message' => 'Error No se ha podido eliminar porque no existe el comentario especificado',
                     'data' => null
                 ], 404);
             }
             Comentario::destroy($id);
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Comentario Eliminado Correctamente',
                 'data' => $tipo
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Eliminar el Comentario',
                 'data' => null
             ], 404);

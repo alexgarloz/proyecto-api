@@ -11,13 +11,13 @@ class CategoriaController extends Controller
     {
         try {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Categorías Obtenidas Correctamente',
                 'data' => Categoria::all()
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Obtener la Categoría',
                 'data' => null
             ]);
@@ -30,20 +30,20 @@ class CategoriaController extends Controller
             $idCategoria = Categoria::find($id);
             if (!isset($idCategoria)) {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Error al Obtener la Categoría',
                     'data' => null
                 ], 404);
             } else {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Categoría Obtenida Correctamente',
                     'data' => $idCategoria
                 ]);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Obtener la Categoría',
                 'data' => null
             ], 404);
@@ -63,13 +63,13 @@ class CategoriaController extends Controller
                 'id_tipo' => '1'
             ]);
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Categoría Insertada Correctamente',
                 'data' => $categoriaCreate
             ], 201);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'message' => 'Error al Insertar la Categoría',
                 'data' => null
             ], 404);
@@ -89,21 +89,21 @@ class CategoriaController extends Controller
         try {
             if (!isset($updateCategoria)) {
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Error al Obtener la Categoría',
                     'data' => null
                 ], 404);
             } else {
                 $updateCategoria->update($data);
                 return response()->json([
-                    'success' => 'true',
+                    'success' => true,
                     'message' => 'Categoría Modificado Correctamente',
                     'data' => $updateCategoria
                 ], 201);
             }
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'false',
+                'success' => false,
                 'message' => 'Error al Modificar la Categoría',
                 'data' => null
             ], 404);
@@ -116,20 +116,20 @@ class CategoriaController extends Controller
         try {
             if ($categoria === null) {
                 return response()->json([
-                    'success' => 'false',
+                    'success' => false,
                     'message' => 'Error No se ha podido eliminar porque no existe la categoría especificada',
                     'data' => null
                 ], 404);
             }
             Categoria::destroy($id);
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Categoría Eliminada Correctamente',
                 'data' => $categoria
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => 'true',
+                'success' => true,
                 'message' => 'Error al Eliminar la Categoría',
                 'data' => null
             ], 404);
