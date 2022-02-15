@@ -29,8 +29,25 @@ class AuthController extends Controller
             'rol' => 'required|integer|digits_between:1,2'
         ]);
         try {
+            $stripe = new \Stripe\StripeClient(
+                env('STRIPE_SECRET', '')
+            );
+
+            $create_user = $stripe->customers->create([
+                'name' => $request->nombre,
+                'email' => $request->email,
+                /*
+                'address' => [
+                    'city' => $data->ciudad,
+                    'country' => $data->pais,
+                    'line1' =>  $data->direccion,
+                    'postal_code' => $data->codigo_postal,
+                    'state' => $data->provincia
+                ],*/
+            ]);
 
             $userCreate = User::create([
+                'stripe_id' => $create_user->id,
                 'nombre' => $request->nombre,
                 'apellido1' => $request->apellido1,
                 'apellido2' => $request->apellido2,
