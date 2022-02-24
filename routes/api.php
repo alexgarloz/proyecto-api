@@ -43,7 +43,8 @@ Route::group(['prefix' => 'auth'], function () {
     Route::get('logout', [AuthController::class, 'logout']);
 
     Route::prefix('/user')->name('user.')->group(function () {
-        Route::get('/', [UserController::class, 'getAll']);
+        Route::get('/search/{terms}', [UserController::class, 'getAll']);
+        //Route::get('/search/{nombre}', [UserController::class, 'getSearch']);
         Route::middleware(AsegurarIdNumerico::class)->group(function () {
             Route::get('/{id}', [UserController::class, 'getId']);
             Route::delete('/{id}', [UserController::class, 'deleteUser']);

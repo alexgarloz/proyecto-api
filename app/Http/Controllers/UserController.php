@@ -7,18 +7,54 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function getAll()
+    public function getAll(Request $request)
     {
         try {
             return response()->json([
                 'success' => true,
                 'message' => 'Usuarios Obtenidos Correctamente',
-                'data' => User::all()
+                'data' => User::where('nombre', 'LIKE', '%' . $request->terms . '%')
+                    ->orWhere('apellido1', 'LIKE', '%' . $request->terms . '%')
+                    ->orWhere('apellido2', 'LIKE', '%' . $request->terms . '%')
+                    ->orWhere('pais', 'LIKE', '%' . $request->terms . '%')
+                    ->orWhere('email', 'LIKE', '%' . $request->terms . '%')
+                    ->paginate(30)//User::paginate(30) //all()
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => true,
                 'message' => 'Error al Obtener el Usuario',
+                'data' => null
+            ]);
+        }
+    }
+
+    public function getSearch(Request $request)
+    {
+
+        try {
+            $nombre = (empty($request->nombre)) ? '' : $request->nombre;
+            dd($nombre);
+//->orWhere('last_name', 'like', "%{$data}%")
+            $userSearch = User::limit(20)->where('nombre', 'like', "%{$nombre}%")->get();
+            if (!$nombre == '') {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Users Obtenidos Correctamente',
+                    'data' => User::limit(20)->get()
+                ]);
+            } else {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Users Obtenidos Correctamente',
+                    'data' => $userSearch
+                ]);
+            }
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Error al Obtener el Users',
                 'data' => null
             ]);
         }
