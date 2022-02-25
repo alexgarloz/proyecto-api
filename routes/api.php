@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\ContratoServicioController;
 use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ServicioController;
@@ -100,6 +101,12 @@ Route::group(['prefix' => 'auth'], function () {
             Route::put('/{id}', [ServicioController::class, 'modifyServicio']);
         });
         Route::post('', [ServicioController::class, 'insertServicio']);
+    });
+
+    Route::prefix('/contrato-servicio')->name('contrato-servicio.')->group(function () {
+        Route::middleware(AsegurarIdNumerico::class)->group(function () {
+            Route::get('/{id}', [ContratoServicioController::class, 'getIdUser']);
+        });
     });
 
     Route::prefix('/comentario')->name('comentario.')->group(function () {

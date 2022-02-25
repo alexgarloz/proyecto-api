@@ -16,6 +16,8 @@ class CreateContratosServiciosTable extends Migration
         Schema::create('contrato_servicio', function (Blueprint $table) {
             $table->id();
             $table->float('precio')->nullable();
+            $table->datetime('fecha_inicio')->nullable();
+            $table->datetime('fecha_fin')->nullable();
             $table->unsignedBigInteger('id_servicio');
             $table->unsignedBigInteger('id_usuario');
             $table->timestamps();

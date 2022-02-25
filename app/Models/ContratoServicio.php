@@ -21,6 +21,8 @@ class ContratoServicio extends Model
     protected $fillable = [
         'precio',
         'imagen',
+        'fecha_inicio',
+        'fecha_fin',
         'id_servicio',
         'id_usuario'
     ];
