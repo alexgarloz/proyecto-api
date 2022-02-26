@@ -4,21 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Servicio;
 use Illuminate\Http\Request;
-use Illuminate\Support\Env;
 
 class ServicioController extends Controller
 {
-    public function getAll()
+    public function getAll(Request $request)
     {
         try {
             return response()->json([
                 'success' => true,
                 'message' => 'Servicios Obtenidos Correctamente',
-                'data' => Servicio::all()
+                'data' => Servicio::where('nombre', 'LIKE', '%' . $request->terms . '%')
+                    ->orWhere('descripcion', 'LIKE', '%' . $request->terms . '%')
+                    ->orWhere('precio', 'LIKE', '%' . $request->terms . '%')
+                    ->paginate(30)
             ]);
+
         } catch (\Exception $e) {
             return response()->json([
-                'success' => true,
+                'success' => false,
                 'message' => 'Error al Obtener el Servicio',
                 'data' => null
             ]);
@@ -84,8 +87,8 @@ class ServicioController extends Controller
             );
 
             $product = $stripe->products->create([
-                'name' =>  $request->nombre,
-                'description' =>  $request->descripcion
+                'name' => $request->nombre,
+                'description' => $request->descripcion
                 // 'images' =>
             ]);
 

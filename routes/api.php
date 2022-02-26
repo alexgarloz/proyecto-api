@@ -94,7 +94,8 @@ Route::group(['prefix' => 'auth'], function () {
     });
 
     Route::prefix('/servicio')->name('servicio.')->group(function () {
-        Route::get('/', [ServicioController::class, 'getAll']);
+        Route::get('/search/{terms}', [ServicioController::class, 'getAll']);
+        //Route::get('/', [ServicioController::class, 'getAll']);
         Route::middleware(AsegurarIdNumerico::class)->group(function () {
             Route::get('/{id}', [ServicioController::class, 'getId']);
             Route::delete('/{id}', [ServicioController::class, 'deleteServicio']);
