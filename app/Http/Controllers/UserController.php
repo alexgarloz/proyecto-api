@@ -22,7 +22,7 @@ class UserController extends Controller
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => true,
+                'success' => false,
                 'message' => 'Error al Obtener el Usuario',
                 'data' => null
             ]);
@@ -53,7 +53,7 @@ class UserController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'success' => true,
+                'success' => false,
                 'message' => 'Error al Obtener el Users',
                 'data' => null
             ]);
@@ -66,7 +66,7 @@ class UserController extends Controller
             $idUser = User::find($id);
             if (!isset($idUser)) {
                 return response()->json([
-                    'success' => true,
+                    'success' => false,
                     'message' => 'Error al Obtener el Usuario',
                     'data' => null
                 ], 404);
@@ -79,7 +79,7 @@ class UserController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json([
-                'success' => true,
+                'success' => false,
                 'message' => 'Error al Obtener el Usuario',
                 'data' => null
             ], 404);
@@ -107,7 +107,7 @@ class UserController extends Controller
             $updateUser = User::find($id);
             if (!isset($updateUser)) {
                 return response()->json([
-                    'success' => true,
+                    'success' => false,
                     'message' => 'Error al Obtener el Usuario',
                     'data' => null
                 ], 404);
@@ -147,7 +147,7 @@ class UserController extends Controller
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => true,
+                'success' => false,
                 'message' => 'Error al Eliminar el Usuario',
                 'data' => null
             ], 404);
