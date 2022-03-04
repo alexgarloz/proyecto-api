@@ -7,17 +7,25 @@ use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
-    public function getAll()
+    public function getAll(Request $request)
     {
         try {
+            if (!isset($request->terms)){
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Categorías Obtenidas Correctamente',
+                    'data' => Categoria::where('nombre', 'LIKE', '%' . $request->terms . '%')->paginate(30)
+                ]);
+            }
             return response()->json([
                 'success' => true,
                 'message' => 'Categorías Obtenidas Correctamente',
-                'data' => Categoria::all()
+                'data' => Categoria::paginate(30)
             ]);
+
         } catch (\Exception $e) {
             return response()->json([
-                'success' => true,
+                'success' => false,
                 'message' => 'Error al Obtener la Categoría',
                 'data' => null
             ]);
@@ -30,7 +38,7 @@ class CategoriaController extends Controller
             $idCategoria = Categoria::find($id);
             if (!isset($idCategoria)) {
                 return response()->json([
-                    'success' => true,
+                    'success' => false,
                     'message' => 'Error al Obtener la Categoría',
                     'data' => null
                 ], 404);
@@ -43,7 +51,7 @@ class CategoriaController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json([
-                'success' => true,
+                'success' => false,
                 'message' => 'Error al Obtener la Categoría',
                 'data' => null
             ], 404);
@@ -89,7 +97,7 @@ class CategoriaController extends Controller
         try {
             if (!isset($updateCategoria)) {
                 return response()->json([
-                    'success' => true,
+                    'success' => false,
                     'message' => 'Error al Obtener la Categoría',
                     'data' => null
                 ], 404);
@@ -129,7 +137,7 @@ class CategoriaController extends Controller
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'success' => true,
+                'success' => false,
                 'message' => 'Error al Eliminar la Categoría',
                 'data' => null
             ], 404);
