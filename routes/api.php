@@ -40,7 +40,8 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('register', [AuthController::class, 'registerUser']);
 
 });
-//Route::group(['middleware' => 'auth:sanctum'], function () {
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    //@todo añadir middleware para limitar a lo usuarios con roles.
     Route::get('logout', [AuthController::class, 'logout']);
 
     Route::prefix('/user')->name('user.')->group(function () {
@@ -74,7 +75,8 @@ Route::group(['prefix' => 'auth'], function () {
     });
 
     Route::prefix('/categoria')->name('categoria.')->group(function () {
-        Route::get('/', [CategoriaController::class, 'getAll']);
+       // Route::get('/', [CategoriaController::class, 'getAll']);
+        Route::get('/search/{terms}', [CategoriaController::class, 'getAll']);
         Route::middleware(AsegurarIdNumerico::class)->group(function () {
             Route::get('/{id}', [CategoriaController::class, 'getId']);
             Route::delete('/{id}', [CategoriaController::class, 'deleteCategoria']);
@@ -119,7 +121,7 @@ Route::group(['prefix' => 'auth'], function () {
         });
         Route::post('', [ComentarioController::class, 'insertComentario']);
     });
-//});
+});
 //});
 
 
