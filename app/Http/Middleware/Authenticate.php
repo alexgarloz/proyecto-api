@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Support\Facades\Redirect;
 
 class Authenticate extends Middleware
 {
@@ -15,7 +16,10 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('login');
+            return view('auth.verify-email');
+            //$url = 'http://localhost:4200/auth/login';
+            //return redirect()->away('https://www.google.com');
+            //return Redirect::to($url);
         }
     }
 }

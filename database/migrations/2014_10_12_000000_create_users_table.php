@@ -27,6 +27,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('img_perfil')->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('confirmed')->default(0);
+            $table->string('confirmation_code')->nullable();
             $table->string('password');
             $table->string('last_session')->nullable();
             $table->tinyInteger('rol');// rol 1-> usuario normal, cuando se registra, rol 2 -> usuario desarollador
