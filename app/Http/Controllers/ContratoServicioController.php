@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContratoServicio;
+use App\Models\User;
 use Carbon\Carbon;
 
 class ContratoServicioController extends Controller
@@ -29,7 +30,7 @@ class ContratoServicioController extends Controller
                     'fecha_fin' => Carbon::parse($ficha_contrato->fecha_fin)->locale('es')
                         ->format('d M, Y H:m'),
                     'servicio_nombre' => $ficha_contrato->servicio->nombre,
-                    'usuario_nombre' => $ficha_contrato->usuario->nombre,
+                    'usuario_nombre' => User::where('id',$ficha_contrato->servicio->id)->first()->nombre,
                     'fecha_status' => date('Ynj', strtotime($ficha_contrato->fecha_fin))
                 ];
             }
