@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\Tipo;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
@@ -10,24 +11,20 @@ class CategoriaController extends Controller
     public function getAll(Request $request)
     {
         try {
-            if (!isset($request->terms)){
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Categorías Obtenidas Correctamente',
-                    'data' => Categoria::where('nombre', 'LIKE', '%' . $request->terms . '%')->paginate(30)
-                ]);
-            }
+            $request->terms = trim($request->terms);
             return response()->json([
                 'success' => true,
-                'message' => 'Categorías Obtenidas Correctamente',
-                'data' => Categoria::paginate(30)
+                'message' => 'Categorías Obtenidas Correctamente',//->paginate(30)
+                'data' => Categoria::where('nombre', 'LIKE', '%' . $request->terms . '%')
+                    ->addSelect(['tipoNombre' => Tipo::select('nombre')
+                        ->whereColumn('id_tipo', 'tipo.id')
+                    ])->paginate(30)
             ]);
-
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Error al Obtener la Categoría',
-                'data' => null
+                'data' =>   null
             ]);
         }
     }
