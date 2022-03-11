@@ -27,8 +27,13 @@ class ContratoServicioController extends Controller
                     'precio' => str_replace('.', ',', $ficha_contrato->precio),
                     'fecha_inicio' => Carbon::parse($ficha_contrato->fecha_inicio)->locale('es')
                         ->format('d M, Y H:m'),
+                    'fecha_inicio_time' => Carbon::parse($ficha_contrato->fecha_inicio)->locale('es')
+                        ->getTimestamp(),
                     'fecha_fin' => Carbon::parse($ficha_contrato->fecha_fin)->locale('es')
                         ->format('d M, Y H:m'),
+                    'fecha_fin_time' => Carbon::parse($ficha_contrato->fecha_fin)->locale('es')
+                        ->getTimestamp(),
+                    'fecha_actual' => Carbon::now()->locale('es')->getTimestamp(),
                     'servicio_nombre' => $ficha_contrato->servicio->nombre,
                     'usuario_nombre' => User::where('id',$ficha_contrato->servicio->id)->first()->nombre,
                     'fecha_status' => date('Ynj', strtotime($ficha_contrato->fecha_fin))
