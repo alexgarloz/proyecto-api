@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Servicio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class ServicioController extends Controller
 {
@@ -34,7 +36,7 @@ class ServicioController extends Controller
             $idServicio = Servicio::find($id);
             if (!isset($idServicio)) {
                 return response()->json([
-                    'success' => true,
+                    'success' => false,
                     'message' => 'Error al Obtener el Servicio',
                     'data' => null
                 ], 404);
@@ -63,25 +65,38 @@ class ServicioController extends Controller
 
     public function insertServicio(Request $request)
     {
-        $request->only(['nombre', 'descripcion', 'imagen', 'precio']);
+        //dd($request->file('imagen')->getClientOriginalName());
+        $request->only(['nombre', 'descripcion', 'id_sub_categoria', 'imagen', 'precio']);
         $request->validate([
             'nombre' => 'required|string|max:254',
             'descripcion' => 'required|string|max:254',
-            'imagen' => 'required|string', //required|image|mimes:jpeg,png,jpg,gif,svg|max:2048
+            'id_sub_categoria' => 'required',
+            'imagen' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'precio' => 'required|min:0'
         ]);
 
         $request->merge(['precio' => str_replace(',', '.', $request['precio'])]);
 
         try {
+            //@todo comprobar si la imagen le llega o está a null
+
+            $path = $request->imagen->store('public/files');
+            $img = Image::make($request->imagen->getRealPath());
+            $img->resize(600, 400, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
             $servicioCreate = Servicio::create([
                 'nombre' => $request->nombre,
                 'descripcion' => $request->descripcion,
-                'imagen' => $request->imagen,
+                'imagen' => 'public/files' . '/' . basename($path),
                 'precio' => $request->precio,
-                'id_sub_categoria' => '3',
+                'id_sub_categoria' => $request->id_sub_categoria,
                 'id_usuario' => '1'
             ]);
+
+            Storage::disk('local')->put($servicioCreate->imagen, $img->stream());
+
             $stripe = new \Stripe\StripeClient(
                 env('STRIPE_SECRET')
             );
