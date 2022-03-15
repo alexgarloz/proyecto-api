@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
             $table->string('confirmation_code')->nullable();
             $table->string('password');
             $table->string('last_session')->nullable();
-            $table->tinyInteger('rol');// rol 1-> usuario normal, cuando se registra, rol 2 -> usuario desarollador
+            $table->tinyInteger('rol');// rol 1-> usuario normal, rol 2-> usuario (creador), rol 3 -> usuario administrador
 
             $table->rememberToken();
             $table->timestamps();
